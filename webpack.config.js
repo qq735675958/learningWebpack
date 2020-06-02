@@ -14,6 +14,7 @@ module.exports = {
         filename: '[name].[hash].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    watch: true,
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({

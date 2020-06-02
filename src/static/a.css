@@ -4,4 +4,8 @@ body {
 
 #app {
     font-size: 24px;
+    color: green;
+    width: 200px;
+    height: 300px;
+    border: 1px solid gold;
 }

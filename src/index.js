@@ -9,5 +9,5 @@ window.onload = function() {
 function test() {
     console.log("123")
     document.querySelector("#app").innerHTML = "888"
-    document.querySelector("#app").style.color = "red"
+    // document.querySelector("#app").style.color = "red"
 }
