@@ -1,0 +1,95 @@
+import React, { Component } from 'react'
+
+import ReactEcharts from "echarts-for-react";
+class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        sales:[5, 20, 36, 10, 10, 20],
+        stores:[15, 120, 6, 40, 110, 20]
+    }
+    this.EchartsInstans = null
+    this.timer = null
+  }
+
+  componentDidMount(){
+    // let instantce = this.EchartsInstans.getEchartsInstance()
+    this.autoTips()
+
+  }
+
+  autoTips = () => {
+    let myChart = this.EchartsInstans.getEchartsInstance()
+    const {sales,stores} = this.state
+     // 动态显示tootip
+     let faultByHourIndex = 0; //播放所在下标
+     this.timer = setInterval(function() { //使得tootip每隔三秒自动显示
+         myChart.dispatchAction({
+             type: 'showTip', // 根据 tooltip 的配置项显示提示框。
+             seriesIndex: 0,
+             dataIndex: faultByHourIndex
+         });
+         faultByHourIndex++;
+         // faultRateOption.series[0].data.length 是已报名纵坐标数据的长度
+         if (faultByHourIndex >= sales.length) {
+             faultByHourIndex = 0;
+         }
+         if (faultByHourIndex >= stores.length) {
+             faultByHourIndex = 0;
+         }
+     }, 2000 );
+  }
+
+
+
+/**
+     * 折线图的配置对象
+     */
+    getOption = (sales,stores) =>{
+      return {
+          title: {
+              text: 'ECharts 入门示例'
+          },
+          tooltip: {
+            trigger: 'axis'
+        },
+          legend: {
+              data:['销量','库存']
+          },
+          xAxis: {
+              data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+          },
+          yAxis: {},
+          series: [{
+              name: '销量',
+              type: 'line',
+              data: sales
+          },
+          {
+              name: '库存',
+              type: 'line',
+              data: stores
+          }]
+      };
+  }
+
+
+  render() {
+    const {sales,stores} = this.state;
+    return (
+      <div className="aaa">
+        <ReactEcharts
+        ref={(e)=>{this.EchartsInstans = e}}
+        option={this.getOption(sales,stores)}
+        notMerge={true}
+        lazyUpdate={true}/>
+      <div id="box">
+
+      </div>
+      </div>
+    )
+  }
+}
+
+
+export default App;
