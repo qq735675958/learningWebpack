@@ -1,5 +1,6 @@
 import { sss } from "./a.js"
 import "./static/a.css"
+import "./static/b.css"
 
 window.onload = function() {
     test();

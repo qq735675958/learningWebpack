@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+// 抽离css 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 /** const CleanWebpackPlugin = require('clean-webpack-plugin');
  *  以上方法为老方法引入 会报错
  */
@@ -22,13 +23,14 @@ module.exports = {
             filename: 'index.html',
             title: 'development',
             hash: true
-        })
+        }),
+        new MiniCssExtractPlugin()
     ],
     module: {
         rules: [{
             test: /\.css$/,
-            use: ['style-loader', 'css-loader'],
-
+            use:[MiniCssExtractPlugin.loader,'css-loader']
+            // use: ['style-loader', 'css-loader'],
         }]
     },
     devServer: {
